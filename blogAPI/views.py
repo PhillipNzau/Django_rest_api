@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 
 # from serializers import UserSerializer, GroupSerializer
-from blogAPI.models import Car
-from blogAPI.serializers import UserSerializer, GroupSerializer, CarSerializer
+from blogAPI.models import Car, Blogs, Category
+from blogAPI.serializers import UserSerializer, GroupSerializer, CarSerializer, BlogSerializer, CategorySerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,3 +29,12 @@ class CarViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
 
+
+class BlogViewSet(viewsets.ModelViewSet):
+    queryset = Blogs.objects.all()
+    serializer_class = BlogSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
