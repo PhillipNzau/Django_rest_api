@@ -1,38 +1,31 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from rest_framework import permissions
 
-import json
-
+# from serializers import UserSerializer, GroupSerializer
 from blogAPI.models import Car
+from blogAPI.serializers import UserSerializer, GroupSerializer, CarSerializer
 
 
-def index(request):
-    response = json.dumps([{}])
-    return HttpResponse(response, content_type='text/json')
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
-def get_car(request, car_name):
-    if request.method == 'GET':
-        try:
-            car = Car.objects.get(name=car_name)
-            response = json.dumps([{'Car': car_name, 'Top Speed': car.top_speed}])
-        except:
-            response = json.dumps([{'Error': 'No car with that naem'}])
-    return HttpResponse(response, content_type='text/json')
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-@csrf_exempt
-def add_car(request):
-    if request.method == 'POST':
-        payload = json.loads(request.body)
-        car_name = payload['car_name']
-        top_speed = payload['top_speed']
-        car = Car(name=car_name, top_speed=top_speed)
-        try:
-            car.save()
-            response = json.dumps([{'Success': 'Car added successfully!'}])
-        except:
-            response = json.dumps([{'Error': 'Car not added!'}])
-    return HttpResponse(response, content_type='text/json')
 
-# Create your views here.
+class CarViewSet(viewsets.ModelViewSet):
+    queryset = Car.objects.all()
+    serializer_class = CarSerializer
+
