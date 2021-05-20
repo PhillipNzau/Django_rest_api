@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from blogAPI.models import Car, Blogs, Category
+from blogAPI.models import Car, Blogs, Category, Snippet
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -19,6 +19,12 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
+        fields = '__all__'
+
+
+class SnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Snippet
         fields = '__all__'
 
 

@@ -6,6 +6,11 @@ class Car(models.Model):
     top_speed = models.IntegerField()
 
 
+class Snippet(models.Model):
+    name = models.CharField(max_length=100)
+    language = models.CharField(max_length=100)
+
+
 class Category(models.Model):
     cat_name = models.CharField(max_length=100, unique=True, help_text="Enter unique genre")
     cat_description = models.CharField(max_length=100, help_text="A description of the genre", default='')
