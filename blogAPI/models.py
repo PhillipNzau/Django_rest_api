@@ -17,7 +17,7 @@ class Category(models.Model):
 class Blogs(models.Model):
     bg_category = models.ForeignKey(
         Category, on_delete=models.CASCADE)
-    bg_img = models.ImageField()
+    bg_img_url = models.TextField()
     bg_title = models.CharField(max_length=200)
     bg_content = models.TextField()
     bg_author = models.CharField(max_length=100)
