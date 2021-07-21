@@ -44,6 +44,7 @@ router.register(r"categories", views.CategoryViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path("", include(router.urls)),
+    path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     # path('<str:car_name>', views.get_car)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
