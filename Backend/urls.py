@@ -33,17 +33,18 @@ from Backend import settings
 from blogAPI import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'cars', views.CarViewSet)
-router.register(r'blogs', views.BlogViewSet)
-router.register(r'categories', views.CategoryViewSet)
+router.register(r"users", views.UserViewSet)
+router.register(r"groups", views.GroupViewSet)
+router.register(r"cars", views.CarViewSet)
+router.register(r"blogs", views.BlogViewSet)
+router.register(r"categories", views.CategoryViewSet)
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path("", include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     # path('<str:car_name>', views.get_car)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
